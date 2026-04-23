@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Main Menu</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="menu-container">
+  <h1 class="game-title">Procedural Battle RPG</h1>
+
+  <form method="POST" class="menu-buttons">
+    <button type="submit" name="action" value="start_run">Start Game</button>
+  </form>
+
+  <div class="menu-hint">
+    (More options like Settings/Load later)
+  </div>
+</div>
+
+</body>
+</html>

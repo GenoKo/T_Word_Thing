@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Battle</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="battle-page {% if enemy.is_boss %}boss-page{% else %}normal-page{% endif %}">
+  <div class="battle-container">
+
+  <!-- Optional: back to menu -->
+  <form method="POST" style="text-align:right;">
+    <button type="submit" class="mainmenubutton tooltip" name="action" value="back_to_menu">Main Menu
+      <span class="tooltiptext">
+          End the run and return to main menu?
+      </span>
+    </button>
+  </form>
+
+  <!-- World level thing-->
+  <div class="world-level">
+    World Level: {{ world_level }}
+  </div>
+
+  <!-- Enemy -->
+  <div class="enemy-section">
+
+    {% if enemy.is_boss %}
+    <div class="boss-banner">
+        ⚠ BOSS BATTLE ⚠
+    </div>
+    {% endif %}
+
+    <div class="enemy-sprite">👹</div>
+
+    <div class="enemy-stats">
+        {{ enemy.name }} HP: {{ enemy.hp }} / {{ enemy.max_hp }}
+        <br>Personality: {{ enemy.personality_name }} | AI: {{ enemy.ai_type }}
+        <br>Will: {{ enemy_will_to_fight }} | Escape bonus: {{ escape_bonus }}
+
+        {% if enemy.active_effects %}
+          <div class="effects-list enemy-effects">
+            {% for effect in enemy.get_effect_display() %}
+              <div class="effect-tag {{ effect.type }}">{{ effect.text }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+    </div>
+
+</div>
+
+  <!-- If encounter ended, show outcome + next buttons -->
+  {% if ended %}
+    <div class="end-screen">
+      {% if result == "win" %}
+        <h2>Victory!</h2>
+      {% elif result == "lose" %}
+        <h2>Defeat...</h2>
+      {% elif result == "escape" %}
+        <h2>Escaped!</h2>
+      {% elif result == "peace" %}
+        <h2>Conflict Resolved!</h2>
+      {% endif %}
+
+      <p>Next fight difficulty: <b>{{ next_difficulty|default("normal") }}</b></p>
+
+      {% if result != "lose" %}
+        <!-- Choose next difficulty -->
+        <form method="POST" class="end-buttons">
+          <button type="submit" name="action" value="set_diff:easy">Easy</button>
+          <button type="submit" name="action" value="set_diff:normal">Normal</button>
+          <button type="submit" name="action" value="set_diff:hard">Hard</button>
+        </form>
+
+        {% if result != "lose" and is_next_boss %}
+          <p><strong>Warning:</strong> The next encounter is a boss battle!</p>
+        {% endif %}
+
+        <!-- Next encounter / new run -->
+        <form method="POST" class="end-buttons">
+          <button type="submit" name="action" value="next_encounter">Next Encounter</button>
+          <button type="submit" name="action" value="new_run">New Run</button>
+        </form>
+
+        <form method="POST" class="end-buttons">
+          <button type="submit" name="action" value="open_shop">Shop</button>
+        </form>
+      {% else %}
+        <!-- Defeat: only new run -->
+        <form method="POST" class="end-buttons">
+          <button type="submit" name="action" value="new_run">New Run</button>
+        </form>
+      {% endif %}
+    </div>
+
+  {% else %}
+
+    <!-- Command box -->
+    <div class="actions">
+      <form method="POST">
+
+        {% if menu == "main" %}
+          <button type="submit" class="actionbuttons tooltip" name="action" value="do_attack">Attack
+              <span class="tooltiptext">
+                Attack the enemy with your sword
+              </span>
+          </button>
+          <button type="submit" class="actionbuttons tooltip" name="action" value="open_talk">Talk
+            <span class="tooltiptext">
+                Speak to the enemy and influence the battle
+            </span>
+          </button>
+          <button type="submit" class="actionbuttons tooltip" name="action" value="open_skills">Skills
+            <span class="tooltiptext">
+                Use various magical skills
+              </span>
+          </button>
+          <button type="submit" class="actionbuttons tooltip" name="action" value="open_items">Items
+            <span class="tooltiptext">
+                Use an item from your inventory
+              </span>
+          </button>
+          <button type="submit" class="actionbuttons tooltip" name="action" value="do_flee">Escape
+            <span class="tooltiptext">
+                Attempt escape
+              </span>
+          </button>
+
+        
+          {% elif menu == "talk" %}
+            <div class="talk-box">
+              <label for="talk_input">What do you say?</label><br>
+              <input type="text" name="talk_input" id="talk_input" class="talk-input" maxlength="200">
+              <br>
+              <button type="submit" class="actionbuttons" name="action" value="submit_talk">Send</button>
+              <button type="submit" class="actionbuttons" name="action" value="back">Back</button>
+            </div>
+  
+        
+
+        {% elif menu == "skills" %}
+          {% for s in player.skills %}
+            <button type="submit" name="action" value="do_skill:{{ s.key }}" class="actionbuttons tooltip">
+              {{ s.name }}
+              <span class="tooltiptext">
+                {{ s.description }}
+                SP cost: {{ s.sp_cost }}
+              </span>
+            </button>
+          {% endfor %}
+          
+          <button type="submit" class="actionbuttons" name="action" value="back">Back</button>
+
+        {% elif menu == "items" %}
+          {% if inventory_display and inventory_display|length > 0 %}
+            {% for item in inventory_display %}
+              <button type="submit"
+                  name="action"
+                  value="do_item:{{ item.key }}"
+                  class="actionbuttons tooltip">
+                  {{ item.name }} x{{ item.qty }}
+                  <span class="tooltiptext">{{ item.description }}</span>
+              </button>
+            {% endfor %}
+          {% else %}
+            <div class="hint">No items.</div>
+          {% endif %}
+          <button type="submit" class="actionbuttons" name="action" value="back">Back</button>
+        {% endif %}
+
+      </form>
+    </div>
+
+  {% endif %}
+
+
+    
+
+  <!-- Log -->
+  <div class="log-box">
+    <pre>{{ log }}</pre>
+  </div>
+
+  <!-- Player stats -->
+  <div class="player-stats">
+  <div>
+    {{ player.name }} HP: {{ player.hp }} / {{ player.max_hp }}
+
+    {% if player.active_effects %}
+      <div class="effects-list player-effects">
+        {% for effect in player.get_effect_display() %}
+          <div class="effect-tag {{ effect.type }}">{{ effect.text }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div>SP: {{ player.sp }} / {{ player.max_sp }}</div>
+  </div>
+
+  </div>
+</div>
+
+</body>
+</html>

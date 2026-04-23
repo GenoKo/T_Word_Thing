@@ -1,0 +1,283 @@
+body {
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+}
+
+.battle-page {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.normal-page {
+  background-color: #e9c84a;
+}
+
+.boss-page {
+  background-color: #b22222;
+}
+
+.battle-container {
+    background: #ddd;
+    border: 4px solid purple;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Enemy Section */
+.enemy-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.enemy-sprite {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+/* Bars */
+.hp-bar, .sp-bar {
+    width: 250px;
+    height: 20px;
+    border: 2px solid black;
+    background: #444;
+    margin: auto;
+}
+
+.hp-fill {
+    height: 100%;
+    background: red;
+}
+
+.sp-fill {
+    height: 100%;
+    background: blue;
+}
+
+/* Actions */
+.actions {
+    text-align: center;
+    margin-bottom: 15px;
+    overflow: visible;
+}
+
+.actions button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+/* Log */
+.log-box {
+    border: 2px solid black;
+    background: white;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+}
+
+/* Player Bars */
+.player-bars {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bar-group {
+    width: 45%;
+}
+
+.bar-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.end-screen {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.end-screen h2 {
+  margin: 0 0 10px 0;
+}
+
+.small-top { text-align: center; margin-bottom: 6px; }
+.end-buttons button { margin: 5px; }
+
+.menu-container {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 30px;
+  border: 4px solid purple;
+  background: #ddd;
+  text-align: center;
+}
+
+.game-title {
+  margin-top: 0;
+  font-size: 48px;
+}
+
+.menu-buttons button {
+  padding: 14px 28px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.menu-hint {
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
+.boss-banner {
+    background: #8b0000;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 3px solid black;
+    animation: bossFlash 1s infinite alternate;
+}
+
+@keyframes bossFlash {
+    from { background: #8b0000; }
+    to   { background: #ff0000; }
+}
+
+/* Tooltip Box */
+.tooltip {
+  position: relative;
+}
+
+/* Tooltip inside */
+.tooltiptext {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  visibility: hidden;
+  position: absolute;
+  background: rgb(0, 0, 0, 0.8);
+  backdrop-filter: blur(2px);
+  color: white;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 4px;
+
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+
+  white-space: normal;
+  min-width: 140px;
+  max-width: 260px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1.3;
+}
+
+/*arrow for tooltip*/
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.shopgold {
+
+    font-size: 24px;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mainmenubutton {
+
+  font-size: 16px;
+  border-color: red;
+
+}
+
+.mainmenubutton:hover{
+
+    background-color:black;
+    color: white;
+
+}
+
+.actionbuttons {
+
+  border-radius: 4px;
+
+}
+
+.effects-list {
+  margin-top: 6px;
+}
+
+.effect-tag {
+  display: inline-block;
+  margin: 2px 4px 0 0;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid black;
+}
+
+.effect-tag.buff {
+  background: rgba(0, 128, 0, 0.2);
+  border: 1px solid green;
+  color: darkgreen;
+}
+
+.effect-tag.debuff {
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid darkred;
+  color: darkred;
+}
+
+.enemy-effects {
+  text-align: center;
+}
+
+.player-effects {
+  text-align: left;
+}
+
+.world-level {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: inline-block;
+  padding: 4px 10px;
+  border: 2px solid black;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.talk-box {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.talk-input {
+  width: 70%;
+  max-width: 500px;
+  padding: 8px;
+  margin: 10px 0;
+  font-family: monospace;
+  font-size: 14px;
+}
