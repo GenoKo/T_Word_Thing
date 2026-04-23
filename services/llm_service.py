@@ -33,8 +33,7 @@ def talk_to_enemy(enemy, player_message: str, context: dict | None = None) -> di
     """
     context = context or {}
 
-    #api_key = os.environ.get("GEMINI_API_KEY")
-    api_key = "AIzaSyDMBHxcDyd2sfAGx7DnhmxttNQ2WyzU9f4"
+    api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         return _fallback_response(enemy, "missing API key")
 
