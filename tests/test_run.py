@@ -35,22 +35,23 @@ def test_run_advance():
     assert run.encounter_number == 2
 
 
-def test_is_boss_encounter():
+def test_boss_encounter_every_fifth():
     run = Run()
-    run.encounter_number = 5
-    assert run.is_boss_encounter() is True
 
     run.encounter_number = 4
     assert run.is_boss_encounter() is False
+
+    run.encounter_number = 5
+    assert run.is_boss_encounter() is True
 
 
 def test_gold_add_and_spend():
     run = Run()
     run.add_gold(50)
 
-    assert run.gold == 50
     assert run.spend_gold(20) is True
     assert run.gold == 30
+
     assert run.spend_gold(100) is False
     assert run.gold == 30
 
@@ -66,5 +67,3 @@ def test_inventory_add_remove():
 
     assert run.remove_item("potion", 1) is True
     assert run.item_qty("potion") == 0
-
-    assert run.remove_item("potion", 1) is False

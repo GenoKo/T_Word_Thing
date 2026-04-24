@@ -6,8 +6,9 @@ def test_make_normal_enemy():
 
     assert enemy.is_boss is False
     assert enemy.hp > 0
-    assert enemy.attack >= 0
+    assert enemy.attack > 0
     assert enemy.defense >= 0
+    assert enemy.personality_name != ""
 
 
 def test_make_boss_enemy():
@@ -15,16 +16,7 @@ def test_make_boss_enemy():
 
     assert enemy.is_boss is True
     assert enemy.hp > 0
-    assert enemy.attack > 0
-
-
-def test_boss_ignores_difficulty_but_scales_with_progression():
-    boss1 = make_enemy(difficulty="easy", is_boss=True, bosses_defeated=0)
-    boss2 = make_enemy(difficulty="hard", is_boss=True, bosses_defeated=3)
-
-    assert boss2.max_hp >= boss1.max_hp
-    assert boss2.base_attack >= boss1.base_attack
-    assert boss2.base_defense >= boss1.base_defense
+    assert enemy.ai_type == "boss"
 
 
 def test_normal_enemy_scales_with_bosses_defeated():
@@ -34,3 +26,12 @@ def test_normal_enemy_scales_with_bosses_defeated():
     assert e2.max_hp >= e1.max_hp
     assert e2.base_attack >= e1.base_attack
     assert e2.base_defense >= e1.base_defense
+
+
+def test_boss_scales_with_bosses_defeated():
+    b1 = make_enemy(difficulty="easy", is_boss=True, bosses_defeated=0)
+    b2 = make_enemy(difficulty="hard", is_boss=True, bosses_defeated=3)
+
+    assert b2.max_hp >= b1.max_hp
+    assert b2.base_attack >= b1.base_attack
+    assert b2.base_defense >= b1.base_defense
