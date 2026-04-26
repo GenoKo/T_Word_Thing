@@ -3,28 +3,29 @@ from models.entities import Item
 ITEMS = {
     "potion": {
         "name": "❤️ Potion",
-        "heal": 10,
+        "heal": 30,
         "damage": 0,
-        "description": "Restores 10 HP",
+        "description": "Restores 30 HP",
     },
     "hiPotion": {
         "name": "💖 Hi-Potion",
-        "heal": 18,
+        "heal": 50,
         "damage": 0,
-        "description": "Restores 18 HP",
+        "description": "Restores 50 HP",
     },
     "bomb": {
         "name": "💣 Bomb",
         "heal": 0,
-        "damage": 12,
-        "description": "Explodes and deals 12 damage to the enemy",
+        "damage": 15,
+        "description": "Explodes and deals 15 damage to the enemy",
     },
-    "secretElixir": {
-        "name": "💗 Secret-Elixir",
-        "heal": 50,
-        "damage": 0,
-        "description": "Restores a whopping 50 HP! Keep this a secret between us ;)",
-    },
+    #For testing purposes only
+    # "secretElixir": {
+    #     "name": "💗 Secret-Elixir",
+    #     "heal": 100,
+    #     "damage": 0,
+    #     "description": "Restores a whopping 50 HP! Keep this a secret between us ;)",
+    # },
     "ragePotion": {
     "name": "⚔️ Strength Potion",
     "effect_stat": "attack",
