@@ -65,6 +65,7 @@ def index():
 
         # ----- Main menu actions -----
         if action == "start_run":
+            run.reset()
             run.state = "battle"
             battle.new_run(make_player(), make_enemy_for_run(run))
             run.add_item("potion", 2)
@@ -146,6 +147,7 @@ def index():
 
         # ----- End-of-encounter actions -----
         elif action == "new_run":
+            run.reset()
             battle.new_run(make_player(), make_enemy_for_run(run))
             run.add_item("potion", 2)
             run.add_item("bomb", 1)

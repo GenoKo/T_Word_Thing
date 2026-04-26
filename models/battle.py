@@ -68,6 +68,9 @@ class Battle:
         self.turn_number = 1
         self._reset_encounter_state()
         self.log = f"Encounter {self.run.encounter_number} begins!"
+        self.enemy_will_to_fight = 100
+        self.enemy_has_surrendered = False
+        self.escape_bonus = 0.0
 
 
     def _reset_encounter_state(self) -> None:
@@ -250,10 +253,10 @@ class Battle:
         cost_txt = f" (SP -{skill.sp_cost})" if skill.sp_cost else ""
         return f"{user.name} uses {skill.name}{cost_txt} for {dmg} damage!"
 
-    def _use_skill(self, user: Character, target: Character, skill: Skill) -> str:
-        target.take_damage(skill.damage)
-        cost_txt = f" (SP -{skill.sp_cost})" if skill.sp_cost else ""
-        return f"{user.name} uses {skill.name}{cost_txt} for {skill.damage} damage!"
+    # def _use_skill(self, user: Character, target: Character, skill: Skill) -> str:
+    #     target.take_damage(skill.damage)
+    #     cost_txt = f" (SP -{skill.sp_cost})" if skill.sp_cost else ""
+    #     return f"{user.name} uses {skill.name}{cost_txt} for {skill.damage} damage!"
 
     def _use_item(self, user: Character, item: Item) -> str:
         messages = []

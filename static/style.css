@@ -106,6 +106,13 @@ body {
 .small-top { text-align: center; margin-bottom: 6px; }
 .end-buttons button { margin: 5px; }
 
+.end-buttons {
+  
+  border-radius: 4px;
+  size: 8px;
+
+}
+
 .menu-container {
   max-width: 700px;
   margin: 80px auto;
@@ -281,3 +288,4 @@ body {
   font-family: monospace;
   font-size: 14px;
 }
+
