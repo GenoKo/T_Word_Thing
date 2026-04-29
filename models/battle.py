@@ -36,7 +36,7 @@ class Battle:
         self.enemy_has_surrendered = False
         self.escape_bonus = 0.0
 
-    # -------- Run / Encounter Controls --------
+    # ====== Run / Encounter Controls ======
     def new_run(self, new_player: Character, new_enemy: Character) -> None:
         self.run.reset()
         self.player = new_player
@@ -78,7 +78,7 @@ class Battle:
         self.ended = False
         self.result = None
 
-    # -------- Main API --------
+    # === Main API ===
     def process_action(self, action: str) -> None:
         # Allow run/encounter buttons even if ended
         if action == "new_run":
@@ -168,7 +168,7 @@ class Battle:
             return
 
 
-        # item selection (comes from run.inventory now)
+        # item selection
         if action.startswith("do_item:"):
             key = action.split(":", 1)[1]
 
@@ -197,7 +197,7 @@ class Battle:
         self.log = "Unknown action."
         self.menu = "main"
 
-    # -------- Turn flow helpers --------
+    # ===== Turn flow helpers =====
     def _after_player_action(self) -> None:
         self._check_end()
         if not self.ended:
@@ -232,7 +232,7 @@ class Battle:
             self.ended = True
             self.result = "win"
             
-    # -------- Core actions --------
+    # ======== Core actions =======
 
     def _basic_attack(self, attacker: Character, defender: Character) -> str:
         dmg = self._calculate_damage(attacker, defender, attacker.attack)
@@ -311,7 +311,7 @@ class Battle:
 
         action = None
 
-        # ---- AI decision ----
+        # ======= AI decision ==============
         if enemy.ai_type == "basic":
             action = "attack"
 
@@ -339,7 +339,7 @@ class Battle:
         else:
             action = "attack"
 
-        # ---- Execute action ----
+        # ======= Execute action  ============
         if action == "attack":
             msg = self._basic_attack(enemy, player)
 
