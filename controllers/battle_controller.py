@@ -63,7 +63,7 @@ def index():
 
 
 
-        # ----- Main menu actions -----
+        # ========= Main menu actions =============
         if action == "start_run":
             run.reset()
             run.state = "battle"
@@ -140,12 +140,12 @@ def index():
         elif action == "back_to_menu":
             run.state = "menu"
 
-        # ----- Choose next difficulty -----
+        # ===== Choose difficulty =======
         elif action.startswith("set_diff:"):
             diff = action.split(":", 1)[1]
             run.next_difficulty = diff
 
-        # ----- End-of-encounter actions -----
+        # ======= Post Battle actions ========
         elif action == "new_run":
             run.reset()
             battle.new_run(make_player(), make_enemy_for_run(run))
@@ -155,7 +155,7 @@ def index():
         elif action == "next_encounter":
             battle.next_encounter(make_enemy_for_next_encounter(run))
 
-        # ----- Shop -----
+        # ====== Shop =========
         elif action == "open_shop":
             run.state = "shop"
 
