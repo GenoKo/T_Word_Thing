@@ -45,7 +45,7 @@ def make_enemy(
     is_boss: bool = False,
     bosses_defeated: int = 0
 ) -> Character:
-    # bosses_defeated is now the progression stage
+    # scaling progression thing
     scale_stage = bosses_defeated
     personality = random_personality()
 
@@ -53,7 +53,7 @@ def make_enemy(
         template = random.choice(BOSS_ENEMIES)
         reward_multiplier = DIFFICULTY_REWARD_MULTIPLIER["boss"]
 
-        # Bosses scale only with progression, not selected difficulty
+        # Bosses scaling without difficuty affecting
         hp = template["hp"] + (scale_stage * 6)
         attack = template["attack"] + (scale_stage * 2)
         defense = template["defense"] + scale_stage
@@ -66,8 +66,8 @@ def make_enemy(
         template = random.choice(ENEMIES_BY_DIFFICULTY[difficulty])
         reward_multiplier = DIFFICULTY_REWARD_MULTIPLIER[difficulty]
 
-        # Normal enemies scale with progression only,
-        # while difficulty controls the base template/reward
+        # Normal enemies scale with progression only, while difficulty controls the base template/reward
+        
         hp = template["hp"] + (scale_stage * 4)
         attack = template["attack"] + scale_stage
         defense = template["defense"] + (scale_stage // 2)

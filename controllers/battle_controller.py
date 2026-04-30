@@ -135,7 +135,6 @@ def index():
 
                 battle.react_to_talk(player_text, result)
 
-        #---
 
         elif action == "back_to_menu":
             run.state = "menu"

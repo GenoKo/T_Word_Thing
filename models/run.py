@@ -5,7 +5,7 @@ class Run:
         self.next_difficulty = "normal"
         self.gold = 0
         self.inventory: dict[str, int] = {}
-        self.bosses_defeated = 0   # NEW
+        self.bosses_defeated = 0 
 
     def reset(self):
         self.encounter_number = 1

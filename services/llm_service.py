@@ -8,7 +8,7 @@ from google.genai import types
 
 def _fallback_response(enemy, reason: str = "") -> dict[str, Any]:
 
-    # Safe fallback if Gemini is unavailable or returns something invalid.
+    # Default return for when the AI thing fails
     reply = f"{enemy.name} refuses to answer."
     if reason:
         reply = f"{enemy.name} hesitates. ({reason})"
@@ -49,6 +49,8 @@ def talk_to_enemy(enemy, player_message: str, context: dict | None = None) -> di
         or any(str(a).startswith("skill:") for a in player_actions_history)
     )
 
+    # The prompt
+    
     system_prompt = f"""
 You are an enemy in a turn-based RPG battle.
 
@@ -129,7 +131,7 @@ attack, talk, hesitate
         text = response.text.strip()
         data = json.loads(text)
 
-        # final validation / normalization
+        # final validation
         reply = str(data.get("reply", "...")).strip() or "..."
         emotion = data.get("emotion", "none")
         interest_delta = int(data.get("interest_delta", 0))
