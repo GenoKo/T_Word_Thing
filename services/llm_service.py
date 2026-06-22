@@ -119,7 +119,7 @@ attack, talk, hesitate
         client = genai.Client(api_key=api_key)
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
+            model="gemini-3.1-flash-lite",
             contents=system_prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
